@@ -26,8 +26,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="myapp.kc.com.activity.TestActivity2"
-            android:label="这是2个testActivity">
+        <activity android:name="myapp.kc.com.activity.ViewMeasureActivity"
+            android:label="自定义View很简单1">
             <intent-filter>
                 <action android:name="com.kc.main" />
             </intent-filter>
