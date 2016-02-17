@@ -199,8 +199,12 @@ public static int getDefaultSize(int size, int measureSpec) {
 
 
 # 5 ViewGroup的测量
+- 注意调用一下measurechildren（widthSpec、heightSpec）
+- 生成自己的margin
+- ViewGroup处理自己的padding、子控件的margin
 
-ViewGroup处理自己的padding、子空间的margin
+widthSpec、heightSpec和以前一样，是父亲生成后传入的。  由父亲的spec和当前的layout共同生成！
+viewGroup要去measure所有的子空间，同时生成自己的大小（主要是wrap_content)
 
 
 
