@@ -7,6 +7,7 @@ contentParentView是DecorView，id为conent
 
 # 2 conentParentView的widthSpec和heightSpec是如何获取的？
 1 ViewRootImpl承担控制器重任，如
+
 <pre><code>
     private void performTraversals() {
         if (!mStopped) {
@@ -184,3 +185,22 @@ public static int getDefaultSize(int size, int measureSpec) {
     }
     
 <strong>所以，在线性布局中。 如果中间某个自定义的布局，onMeasure是wrap_conent的话，则会占满整个屏幕.</strong>
+
+
+# 4 总结 [链接](http://blog.csdn.net/aigestudio/article/details/42989325)
+首先是流程上：
+
+    ViewRootImpl.performTraversals   //以全屏姿态绘制decoderView
+        customChild.measure              //第一个根节点，则传入父亲的 spec 以及 儿子的layoutParam
+            child.measure       //传入的节点，会根据View.getChildMeasureSpec得到最终spec
+                child.onMeasure     //ViewGroup的话，由其子类来实现
+                    measureChildren     //必定在某个时刻会测量所有儿子
+                        循环
+
+
+# 5 ViewGroup的测量
+
+ViewGroup处理自己的padding、子空间的margin
+
+
+
