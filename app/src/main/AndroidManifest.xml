@@ -32,6 +32,13 @@
                 <action android:name="com.kc.main" />
             </intent-filter>
         </activity>
+
+        <activity android:name="myapp.kc.com.activity.ViewMeasureActivity2"
+            android:label="SquareLayout">
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
