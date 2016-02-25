@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:google="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="#ffffff"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
 
+    >
 
     <myapp.kc.com.view.SquareLayout
         android:layout_width="match_parent"
@@ -13,6 +15,7 @@
         android:paddingRight="7dp"
         android:layout_marginBottom="20dp"
         android:background="#679135"
+        google:my_gravity="left"
         android:layout_margin="5dp">
 
         <Button
@@ -22,7 +25,8 @@
             android:text="tomorrow"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:typeface="serif" />
+            android:typeface="serif"
+            />
 
         <Button
             android:layout_width="50dp"
@@ -56,7 +60,7 @@
             android:layout_height="wrap_content"
             android:background="#961315"
             android:layout_margin="20dp"
-            android:text="AigeStudio" />
+            android:text="goodjob" />
 
 
 

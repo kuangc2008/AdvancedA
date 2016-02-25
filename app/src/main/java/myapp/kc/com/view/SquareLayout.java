@@ -1,10 +1,13 @@
 package myapp.kc.com.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
+import myapp.kc.com.kuang2016_go.R;
 
 /**
  * Created by kuangcheng01 on 2016/2/20.
@@ -43,13 +46,13 @@ public class SquareLayout extends ViewGroup {
                 int childMasureSpec = MeasureSpec.makeMeasureSpec(childMeasureSize, MeasureSpec.EXACTLY);
                 child.measure(childMasureSpec, childMasureSpec);
 
-                MarginLayoutParams mlp = (MarginLayoutParams) child.getLayoutParams();
+                MyMarginLayoutParams mlp = (MyMarginLayoutParams) child.getLayoutParams();
 
                 childWiths[i] = child.getMeasuredWidth()  + mlp.leftMargin + mlp.rightMargin;
                 childHeights[i] = child.getMeasuredHeight() + mlp.topMargin + mlp.bottomMargin;
 
                 Log.i("kcc", "meausre1" + child.getMeasuredHeight() + "   height->" + childHeights[i]
-                    +"  left->" + mlp.topMargin + "  right->" + mlp.rightMargin);
+                    +"  left->" + mlp.topMargin + "  right->" + mlp.bottomMargin);
             }
         }
 
@@ -93,15 +96,7 @@ public class SquareLayout extends ViewGroup {
                     parentDesireWidth = Math.max(parentDesireWidth, childWiths[i]);
                 }
             }
-
-        } else if (mOrientation == ORIENTATION_VERTICAL) {
-
-            if (getChildCount() > mMaxRow) {
-
-            }
-
-
-        }
+    }
 
         Log.i("kcc", "wheight->" + parentDesireHeight + "  width->" + parentDesireWidth);
         parentDesireWidth += getPaddingLeft() + getPaddingRight();
@@ -209,23 +204,49 @@ public class SquareLayout extends ViewGroup {
     }
 
 
+    public static class MyMarginLayoutParams extends MarginLayoutParams {
+        public int mGravity;
+
+        public MyMarginLayoutParams(Context c, AttributeSet attrs) {
+            super(c, attrs);
+
+            TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.SquareLayout);
+            mGravity = a.getInt(R.styleable.SquareLayout_my_gravity, 0);
+        }
+
+        public MyMarginLayoutParams(int width, int height) {
+            super(width, height);
+        }
+
+        public MyMarginLayoutParams(MarginLayoutParams source) {
+            super(source);
+        }
+
+        public MyMarginLayoutParams(LayoutParams source) {
+            super(source);
+        }
+    }
+
+
+
+
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new MarginLayoutParams(getContext(), attrs);
+        return new MyMarginLayoutParams(getContext(), attrs);
     }
 
     @Override
     protected LayoutParams generateLayoutParams(LayoutParams p) {
-        return new MarginLayoutParams(p);
+        return new MyMarginLayoutParams(p);
     }
 
     @Override
     protected LayoutParams generateDefaultLayoutParams() {
-        return  new MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        return  new MyMarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
     @Override
     protected boolean checkLayoutParams(LayoutParams p) {
-        return p instanceof MarginLayoutParams;
+        return p instanceof MyMarginLayoutParams;
     }
 }
