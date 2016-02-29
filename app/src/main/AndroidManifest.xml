@@ -53,6 +53,13 @@
                 <action android:name="com.kc.main" />
             </intent-filter>
         </activity>
+
+        <activity android:name="myapp.kc.com.activity.LineGraphActivity"
+            android:label="自定义曲线">
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
