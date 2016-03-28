@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<myapp.kc.com.view.MyCusViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <myapp.kc.com.view.MyTextView
+        android:id="@+id/textview"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="#8f00"
+        />
+
+</myapp.kc.com.view.MyCusViewGroup>
