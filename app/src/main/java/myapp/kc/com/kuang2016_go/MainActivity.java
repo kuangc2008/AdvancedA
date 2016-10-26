@@ -26,40 +26,31 @@ public class MainActivity extends Activity {
         ListView ll = new ListView(this);
         ll.setAdapter(new MainAdapter(this));
         setContentView(ll);
-        Log.i("kcc", "MainActivity onCreate6 ");
-
-        Log.i("kcc", "MainActivity onCreate");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        Log.i("kcc", "MainActivity onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("kcc", "MainActivity onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("kcc", "MainActivity onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("kcc", "MainActivity onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("kcc", "MainActivity onDestroy");
     }
 
     public static class MainAdapter extends BaseAdapter {

@@ -86,6 +86,16 @@
                 <action android:name="com.kc.main" />
             </intent-filter>
         </activity>
+
+        <activity android:name="myapp.kc.com.activity._1026_KeyboardShowTestActivity"
+                  android:label="keyboard显示与隐藏的回调"
+                  android:windowSoftInputMode="adjustResize"
+            >
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
