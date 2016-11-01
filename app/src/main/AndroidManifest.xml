@@ -96,6 +96,17 @@
             </intent-filter>
 
         </activity>
+
+
+        <activity android:name="myapp.kc.com.activity.pulllistview.EvenOnlyATextViewActivity"
+            android:label="只有一个textview的下拉刷新"
+            android:windowSoftInputMode="adjustResize"
+            >
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

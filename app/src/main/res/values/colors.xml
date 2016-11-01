@@ -3,4 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="red">#FFC93437</color>
+    <color name="blue">#FF375BF1</color>
+    <color name="yellow">#FFF7D23E</color>
+    <color name="green">#FF34A350</color>
+
+
+    <color name="cube_holo_orange_dark">#ffff8800</color>
+    <color name="cube_holo_orange_light">#ffffbb33</color>
+    <color name="cube_mints_white">#ffffff</color>
+
 </resources>
