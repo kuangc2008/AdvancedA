@@ -14,4 +14,9 @@
     <color name="cube_holo_orange_light">#ffffbb33</color>
     <color name="cube_mints_white">#ffffff</color>
 
+
+    <color name="dark">#FF222222</color>
+    <color name="light">#FFEEEEEE</color>
+
+
 </resources>

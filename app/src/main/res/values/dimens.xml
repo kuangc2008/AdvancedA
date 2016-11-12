@@ -10,4 +10,8 @@
 
     <dimen name="cube_mints_content_view_padding">12.5dp</dimen>
 
+    <dimen name="base_padding">16dp</dimen>
+
+
+
 </resources>

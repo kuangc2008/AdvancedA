@@ -107,6 +107,16 @@
             </intent-filter>
 
         </activity>
+
+        <activity android:name="myapp.kc.com.activity.CircleImageViewActivity"
+                  android:label="圆形图片"
+                  android:windowSoftInputMode="adjustResize"
+            >
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
