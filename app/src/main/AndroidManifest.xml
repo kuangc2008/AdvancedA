@@ -7,12 +7,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,16 +46,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="myapp.kc.com.activity.SnackBarTestActivity"
-            android:label="SnakeBar测试">
-            <intent-filter>
-                <action android:name="com.kc.main" />
-            </intent-filter>
-        </activity>
-
 
         <activity android:name="myapp.kc.com.activity.LineGraphActivity"
-            android:label="自定义曲线">
+                  android:label="自定义曲线">
             <intent-filter>
                 <action android:name="com.kc.main" />
             </intent-filter>
