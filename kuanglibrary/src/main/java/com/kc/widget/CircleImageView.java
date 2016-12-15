@@ -38,6 +38,9 @@ import android.widget.ImageView;
 
 import com.kc.kuanglibrary.R;
 
+/**
+ * 圆形图片view
+ */
 public class CircleImageView extends ImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
@@ -281,6 +284,10 @@ public class CircleImageView extends ImageView {
         initializeBitmap();
     }
 
+    /**
+     * 构造方法边会调用这个
+     * @param drawable
+     */
     @Override
     public void setImageDrawable(Drawable drawable) {
         super.setImageDrawable(drawable);
@@ -321,6 +328,11 @@ public class CircleImageView extends ImageView {
         }
     }
 
+    /**
+     * 根据draw的类型，得到Bitmap
+     * @param drawable
+     * @return
+     */
     private Bitmap getBitmapFromDrawable(Drawable drawable) {
         if (drawable == null) {
             return null;
@@ -373,8 +385,8 @@ public class CircleImageView extends ImageView {
             return;
         }
 
+        // 给图片设置bitmapShader，到时花园时，画的便是这张图片
         mBitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-
         mBitmapPaint.setAntiAlias(true);
         mBitmapPaint.setShader(mBitmapShader);
 
