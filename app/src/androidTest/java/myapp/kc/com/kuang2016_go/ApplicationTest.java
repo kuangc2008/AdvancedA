@@ -1,13 +1,18 @@
 package myapp.kc.com.kuang2016_go;
 
 import android.app.Application;
+import android.net.Uri;
 import android.test.ApplicationTestCase;
 import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -19,6 +24,8 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -60,6 +67,16 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
         Log.i("kcc", "解密后："+new String(decryptedBytes));
 
+
+
+        String aaa = decryptWithRSA(publicKey, "dFtf\\/643LzWxf7FIMUyuzdqYCV2enOXN5aUrw" +
+                "+zKnwoa3y4aSBgZzMwOdQVV9J8Vi3MhCVqinsQv1vO1bxa5JB94z8wne7poXxWdv" +
+                "+RD91Sqto5c7RV7hcIX1ZC5G68e4b1oTKVTesDMcveRIkYUtcJs3LuiXw8XW4BPQFc8qNo=");
+
+
+        Log.i("kcc", "aaa："+  aaa);
+
+
     }
 
     //将base64编码后的公钥字符串转成PublicKey实例
@@ -91,6 +108,25 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return cipher.doFinal(content);
     }
+
+    //公钥解密
+    public static String decryptWithRSA(PublicKey publicKey, String encryedData) throws Exception {
+        if (publicKey == null) {
+            throw new NullPointerException("decrypt PublicKey is null !");
+        }
+
+        Cipher cipher = null;
+        cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");// 此处如果写成"RSA"解析的数据前多出来些乱码
+        cipher.init(Cipher.DECRYPT_MODE, publicKey);
+        byte[] output = cipher.doFinal(Base64.decode(encryedData, Base64.NO_WRAP));
+        return new String(output);
+    }
+    /**************************** RSA 公钥加密解密**************************************/
+
+
+
+
+
 
     public void testRSA2() throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
         RSA a = new RSA();
@@ -314,4 +350,58 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 //            return factory.generatePrivate(keySpec);
 //        }
 //    }
+
+
+    public void testEncode() {
+
+
+
+        try {
+            String a = URLDecoder.decode("%E9%9B%AA%E9%B9%B0%E9%A2%86%E4%B8%BB%E6%89%8B%E6%B8%B8", "utf-8");
+            String a2 = URLDecoder.decode("%E9%9B%AA%E9%B9%B0%E9%A2%86%E4%B8%BB%E6%89%8B%E6%B8%B8", "gbk");
+            String b = URLDecoder.decode("%C2%AF%CA%AF%B4%AB%CB%B5", "utf-8");
+            String b2 = URLDecoder.decode("%C2%AF%CA%AF%B4%AB%CB%B5", "gbk");
+
+            // 1 还是返回同样的字符串
+//            String b3 = new String(b.getBytes("utf-8"), "utf-8");
+//            String a4 = new String(a2.getBytes("ISO-8859-1"), "gbk");
+
+
+            // 2 反正这个api永远return true
+//            boolean b = java.nio.charset.Charset.forName("GBK").newEncoder().canEncode(a);
+
+
+            Log.i("kcc", "heheda-" + a + "  result2->" + a2 + " b->"   + b + "  a-" + b2 ) ;
+
+
+
+
+            String heheda = isUtf8("%E9%9B%AA%E9%B9%B0%E9%A2%86%E4%B8%BB%E6%89%8B%E6%B8%B8");
+            String heheda2 = isUtf8("%C2%AF%CA%AF%B4%AB%CB%B5");
+
+            Log.i("kcc", "good->" + heheda + "  hehe->" + heheda2);
+
+        } catch (Exception e) {
+        }
+
+
+        Uri url = Uri.parse("123");
+        Log.i("kcc", "url-" + url);
+
+    }
+
+    protected static final Pattern utf8Pattern = Pattern.compile("^([\\x01-\\x7f]|[\\xc0-\\xdf][\\x80-\\xbf]|[\\xe0-\\xef][\\x80-\\xbf]{2}|[\\xf0-\\xf7][\\x80-\\xbf]{3}|[\\xf8-\\xfb][\\x80-\\xbf]{4}|[\\xfc-\\xfd][\\x80-\\xbf]{5})+$");
+    protected static final Pattern publicPattern = Pattern.compile("^([\\x01-\\x7f]|[\\xc0-\\xdf][\\x80-\\xbf])+$");
+
+    private String isUtf8(String a) {
+        Matcher matcher = utf8Pattern.matcher(a);
+        if (matcher.matches()) {
+            return "UTF-8";
+        } else {
+            return "GBK";
+        }
+
+    }
+
+
 }
