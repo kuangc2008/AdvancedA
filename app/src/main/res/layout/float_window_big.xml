@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/big_window_layout"
+    android:background="#1000"
+    android:focusable="false"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:id="@+id/total_duration"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textSize="28dp"
+        android:gravity="center"
+        android:text="总时间： 01:59:01"
+        android:textColor="#FFF"
+        />
+
+    <TextView
+        android:id="@+id/current_duration"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textSize="36dp"
+        android:gravity="center"
+        android:text="59:01"
+        android:textColor="#FFF"
+        />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textColor="#FFF"
+        android:textSize="28dp"
+        android:text="人在回忆往事的时候，不应碌碌无为而悔恨，不应虚度光阴而羞耻"
+        />
+
+</LinearLayout>
