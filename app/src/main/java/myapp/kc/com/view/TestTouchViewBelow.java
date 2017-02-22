@@ -17,16 +17,17 @@ public class TestTouchViewBelow extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.i("kcc", "below  onTouchEvent" + event.getAction());
+        boolean onTouchEvent = super.onTouchEvent(event);
+        Log.i("kcc", "below  onTouchEvent" + event.getAction() + "   return "  +  onTouchEvent);
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            return true;
+            return onTouchEvent;
         }
         return super.onTouchEvent(event);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Log.i("kcc", "below  onTouchEvent" + event.getAction());
+        Log.i("kcc", "below  dispatchTouchEvent" + event.getAction());
         return super.dispatchTouchEvent(event);
     }
 

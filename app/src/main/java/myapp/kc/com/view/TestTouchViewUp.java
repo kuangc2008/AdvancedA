@@ -23,7 +23,7 @@ public class TestTouchViewUp extends View {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Log.i("kcc", "up  onTouchEvent" + event.getAction());
+        Log.i("kcc", "up  dispatchTouchEvent" + event.getAction());
         return super.dispatchTouchEvent(event);
     }
 
