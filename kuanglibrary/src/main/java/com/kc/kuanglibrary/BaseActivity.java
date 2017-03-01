@@ -1,14 +1,19 @@
 package com.kc.kuanglibrary;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.kc.utils.Constant;
+
 /**
  * Created by chengkuang on 16/10/21.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends FragmentActivity {
 
 
     private int mAboveKeyboardHeight = 0;
@@ -64,5 +69,19 @@ public class BaseActivity extends Activity {
 
     protected void onKeyboardVisibilityChanged(boolean isVisible) {
 
+    }
+
+
+    public void startPluginFragment(String fragment, String apkPath) {
+        startPluginFragment(fragment, apkPath, null);
+    }
+
+    public void startPluginFragment(String fragment, String apkPath, Bundle bundle) {
+        Intent intent = new Intent();
+        intent.setAction(Constant.ACTION_HOST_ACTIVITY);
+        intent.putExtra(Constant.INTENT_KEY_APK_PATH, apkPath);
+        intent.putExtra(Constant.INTENT_KEY_FRAGMENT, fragment);
+        intent.putExtra(Constant.INTENT_KEY_BUNDLE, bundle);
+        startActivity(intent);
     }
 }
