@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="myapp.kc.com.kuang2016_go">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -112,17 +114,28 @@
 
         </activity>
 
-        <activity android:name="myapp.kc.com.self_control.SelfControllActivity"
-            android:label="控制时间"
+        <!--<activity android:name="myapp.kc.com.self_control.SelfControllActivity"-->
+            <!--android:label="控制时间"-->
+            <!--android:windowSoftInputMode="adjustResize"-->
+            <!--&gt;-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.kc.main" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <service android:name="myapp.kc.com.self_control.SelfControllService"></service>
+
+
+
+        <activity android:name="myapp.kc.com.activity.WIFITestActivity"
+            android:label="WIFI测试"
             android:windowSoftInputMode="adjustResize"
             >
             <intent-filter>
                 <action android:name="com.kc.main" />
             </intent-filter>
+
         </activity>
-
-        <service android:name="myapp.kc.com.self_control.SelfControllService"></service>
-
 
     </application>
 
