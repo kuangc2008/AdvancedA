@@ -1,1 +1,1 @@
-include ':app', ':kuanglibrary'
+include ':app', ':kuanglibrary', ':logexport'
