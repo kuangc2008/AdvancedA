@@ -137,6 +137,16 @@
 
         </activity>
 
+        <activity android:name="myapp.kc.com.activity.ListHeaderAnimationActivity"
+            android:label="做一个关于header的动画"
+            android:windowSoftInputMode="adjustResize"
+            >
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>
