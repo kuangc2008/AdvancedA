@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/list_header_bg"
+        android:orientation="vertical">
+
+        <myapp.kc.com.view.MyHeaderView
+            android:layout_width="16dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/header_line1"
+                    android:layout_width="7dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="3dp"
+                    android:background="#b1b1b1" />
+
+                <View
+                    android:id="@+id/header_line2"
+                    android:layout_width="7dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="3dp"
+                    android:background="#b1b1b1" />
+
+                <View
+                    android:id="@+id/header_line3"
+                    android:layout_width="7dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#b1b1b1" />
+
+
+            </LinearLayout>
+
+
+        </myapp.kc.com.view.MyHeaderView>
+
+    </FrameLayout>
+
+</LinearLayout>
+
