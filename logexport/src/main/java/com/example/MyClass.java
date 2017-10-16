@@ -6,10 +6,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -18,6 +21,9 @@ import java.nio.file.Path;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -31,18 +37,12 @@ public class MyClass {
 
         String filePath = "/home/kc/Desktop/shared/每周工作/log/log";
 
-        String destPath = "/home/kc/Desktop/shared/每周工作/log/log2";
-
-
-
         String fileName = copyFile();
-
-        new File(destPath).delete();
-        try {
-            new File(destPath).createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (fileName == null) {
+            return;
         }
+
+        System.out.println("file name-" + fileName);
 
         ArrayList<String> datas = new ArrayList<>();
         ArrayList<String> datas2 = new ArrayList<>();
@@ -51,10 +51,12 @@ public class MyClass {
             read(filePath, datas, datas2);
 
             writeLine(filePath);
-//            writeString(filePath, fileName);
+
+            writeString(filePath, "[browser][newssdk][2.1.4][aar] " + fileName);
             write1(filePath, datas);
 
             writeLine(filePath);
+            writeString(filePath, fileName);
             write1(filePath, datas2);
 
         } catch (Exception e) {
@@ -89,50 +91,40 @@ public class MyClass {
         String fileName = files[0];
         String filePath = downloadPath + "/" +  fileName;
 
-//        String destFilePath = "/media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/browser/browser/libs/newssdk.aar";
-        String destFilePath = "/media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/browser/browser/libs/";
+
+        String fileMd5 = null;
+        try {
+            fileMd5 = getMD5Checksum(filePath);
+            System.out.println("md5 is-" + fileMd5);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            System.err.println("md5 error");
+        }
+
+        String destFilePath = "/media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/browser/browser/libs/newssdk.aar";
         File destFile = new File(destFilePath);
 
-//        if (destFile.exists()) {
-//            destFile.delete();
-//        }
+        boolean success = copyFile(new File(filePath), destFile);
 
-        Process process = null;
-        try {
-            String downloadFile = downloadPath + "/" + "newssdk.aar";
-            String shell = "rename "+ filePath + " " + downloadFile;
-//            process = Runtime.getRuntime().exec("mv -f " + filePath + " " + destFilePath);
-            process = Runtime.getRuntime().exec(shell);
-
-//            int exitValue = process.exitValue();
-
-            byte[] b = new byte[112048];
-            int len = process.getInputStream().read(b);
-            if (len > 0) {
-                System.out.println(new String(b, 0, len));
-            }
-
-
-            byte[] c = new byte[112048];
-            len = process.getErrorStream().read(c);
-            if (len > 0) {
-                System.out.println(new String(c, 0, len));
-            }
-
-
-//            if (exitValue == 0) {
-                return fileName;
-//            }
-        } catch (IOException e) {
+        if (!success) {
             return null;
-        } finally {
-            if (process != null) {
-                process.destroy();
-            }
         }
 
 
-//        return null;
+        String destFileMd5 = null;
+        try {
+            destFileMd5 = getMD5Checksum(destFilePath);
+            System.out.println("md5 is-" + destFileMd5);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            System.err.println("md5 error");
+        }
+
+        if (destFileMd5 != null && destFileMd5.equals(fileMd5)) {
+            return fileName;
+        }
+
+        return null;
 
     }
 
@@ -227,10 +219,84 @@ public class MyClass {
         br.close();
     }
 
-    private static void writeString(String filePath, String fileName) throws IOException {
+    private static void writeString(String filePath, String string) throws IOException {
         BufferedWriter br = new BufferedWriter(new FileWriter(filePath, true));
-        br.write(fileName);
-        System.out.println(fileName);
+        br.write(string);
+        br.write('\n');
+        System.out.println(string);
         br.close();
+    }
+
+    public static byte[] createChecksum(String filename) throws Exception {
+        InputStream fis =  new FileInputStream(filename);
+
+        byte[] buffer = new byte[1024];
+        MessageDigest complete = MessageDigest.getInstance("MD5");
+        int numRead;
+
+        do {
+            numRead = fis.read(buffer);
+            if (numRead > 0) {
+                complete.update(buffer, 0, numRead);
+            }
+        } while (numRead != -1);
+
+        fis.close();
+        return complete.digest();
+    }
+
+    // see this How-to for a faster way to convert
+    // a byte array to a HEX string
+    public static String getMD5Checksum(String filename) throws Exception {
+        byte[] b = createChecksum(filename);
+        String result = "";
+
+        for (int i=0; i < b.length; i++) {
+            result += Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
+        }
+        return result;
+    }
+
+
+    public static boolean copyFile(File fromPath, File toPath) {
+        if (fromPath != null && fromPath.exists() && toPath != null) {
+            InputStream is = null;
+            OutputStream ops = null;
+            try {
+                if (toPath.exists()) {
+                    toPath.delete();
+                }
+                is = new FileInputStream(fromPath);
+                ops = new FileOutputStream(toPath);
+                int len = 0;
+                byte[] buffer = new byte[4096];
+                while (len != -1) {
+                    len = is.read(buffer);
+                    if (len > 0) {
+                        ops.write(buffer, 0, len);
+                    }
+                }
+                return true;
+            } catch (Throwable ex) {
+                ex.printStackTrace();
+
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ops != null) {
+                    try {
+                        ops.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
