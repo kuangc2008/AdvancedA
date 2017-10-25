@@ -3,6 +3,7 @@ package com.example;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.net.URI;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -34,10 +36,29 @@ public class MyClass {
 
     public static void main(String[] args) {
 
-        String version = args == null ? "2.1.6" : args[0];
-
-
+        int count = (args != null && args.length > 0) ? Integer.parseInt(args[0]) : 30;
+        String version = (args != null && args.length > 1) ? args[1] :  "2.1.6" ;
         String filePath = "/home/kc/Desktop/shared/每周工作/log/log";
+
+        String streamToStr = null;
+        try {
+            String[] cmd = { "/bin/sh", "-c",
+                    "cd /media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/newsfeed/; " +
+                            "git log -n " + count + " --pretty=format:\"%an %ai %s\";" };
+
+//            Runtime.getRuntime().exec("sh -c cd /media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/newsfeed");
+            Process process = Runtime.getRuntime().exec(cmd);
+//            Process process = Runtime.getRuntime().exec("sh -c ls -al");
+            streamToStr = streamToString(process.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (streamToStr == null) {
+            return;
+        }
+
+
 
         String fileName = copyFile();
         if (fileName == null) {
@@ -50,7 +71,8 @@ public class MyClass {
         ArrayList<String> datas2 = new ArrayList<>();
 
         try {
-            read(filePath, datas, datas2);
+//            read(filePath, datas, datas2);
+            read2(streamToStr, datas, datas2);
 
             writeLine(filePath);
 
@@ -175,27 +197,61 @@ public class MyClass {
         bis.close();
     }
 
+
+    private static void read2(String streamToStr, ArrayList<String> datas, ArrayList<String> datas2) throws IOException {
+        int currentLine = 0;
+        BufferedReader bis = new BufferedReader(new StringReader(streamToStr));
+        String line = null;
+
+        List<String> headers = new ArrayList<String>();
+        List<String> tail = new ArrayList<String>();
+        int maxHeaderLen = 0;
+
+        while ( (line = bis.readLine()) != null ) {
+//            System.out.println(line);
+
+            String[] parts = line.split(" ", 5);
+            if (parts.length == 5) {
+                currentLine++;
+                datas.add( currentLine + ". " + parts[4] + "###" + parts[0]);
+
+
+                String header = getHeader(parts);
+                headers.add(header);
+                if (maxHeaderLen < header.length()) {
+                    maxHeaderLen = header.length();
+                }
+                tail.add(parts[4]);
+            }
+        }
+
+        for (int i = 0; i < headers.size(); i++) {
+            String content = headers.get(i);
+            int spaceCount = maxHeaderLen - content.length() + 1;
+            for (int j = 0; j<spaceCount; j++) {
+                content += ' ';
+            }
+
+            content += tail.get(i);
+            datas2.add(content);
+        }
+
+
+
+        bis.close();
+    }
+
     private static String getHeader(String[] parts) {
         StringBuilder content = new StringBuilder();
         content.append("【");
-        String[] years = parts[3].split("/");
-        content.append(years[0]);
-        content.append("月");
+        String[] years = parts[1].split("-");
         content.append(years[1]);
+        content.append("月");
+        content.append(years[2]);
         content.append("号");
-
-        if (parts[6].equals("AM")) {
-            content.append("上午");
-        } else if (parts[6].equals("PM")) {
-            content.append("下午");
-        }
-
-        content.append(parts[5]);
-
+        content.append(parts[2]);
         content.append("，");
-        content.append(parts[1]);
-
-
+        content.append(parts[0]);
         content.append("】");
 
         return content.toString();
@@ -206,6 +262,7 @@ public class MyClass {
         BufferedWriter br = new BufferedWriter(new FileWriter(filePath, true));
         for (int i =0; i< 3; i++) {
             br.write('\n');
+            System.out.println();
         }
         br.close();
     }
@@ -300,5 +357,26 @@ public class MyClass {
             }
         }
         return false;
+    }
+
+
+    public static String streamToString(InputStream in) {
+        if (in == null) {
+            return "";
+        }
+
+        byte[] b = new byte[1024 * 4];
+        int len = 1024 * 4;
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            while( (len = in.read(b)) > 0 ) {
+                bos.write(b, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bos.toString();
     }
 }
