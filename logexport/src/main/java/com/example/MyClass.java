@@ -34,6 +34,8 @@ public class MyClass {
 
     public static void main(String[] args) {
 
+        String version = args == null ? "2.1.6" : args[0];
+
 
         String filePath = "/home/kc/Desktop/shared/每周工作/log/log";
 
@@ -52,7 +54,7 @@ public class MyClass {
 
             writeLine(filePath);
 
-            writeString(filePath, "[browser][newssdk][2.1.4][aar] " + fileName);
+            writeString(filePath, "[browser][newssdk][" + version + "][aar] " + fileName);
             write1(filePath, datas);
 
             writeLine(filePath);
