@@ -1,54 +1,60 @@
 package com.example;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
-import java.net.URI;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
-import java.security.DigestInputStream;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
-public class MyClass {
+public class NewssdkToBrowser {
+    public static final String VERSION = "2.1.6";
+
+    public static final String BROWSER_PROJECT_DIR = "/media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/";
+
+    public static final String AAR_DOWNLOAD_PATH = "/home/kc/Downloads/";
+
+    public static final String NEWSDK_FILE_DIR = "/media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/newsfeed/";
+
+    public static final String LOG_BRANCH = "origin/developer";
+
+    public static int LOG_COUNT = 15;
 
     public static void main(String[] args) {
+        String version = NewssdkToBrowser.VERSION;
+        if (args != null && args.length > 0) {
+            LOG_COUNT = Integer.parseInt(args[0]);
+        }
 
-        int count = (args != null && args.length > 0) ? Integer.parseInt(args[0]) : 30;
-        String version = (args != null && args.length > 1) ? args[1] :  "2.1.6" ;
-        String filePath = "/home/kc/Desktop/shared/每周工作/log/log";
+        int count = NewssdkToBrowser.LOG_COUNT;
 
         String streamToStr = null;
         try {
-            String[] cmd = { "/bin/sh", "-c",
-                    "cd /media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/newsfeed/; " +
-                            "git log -n " + count + " --pretty=format:\"%an %ai %s\";" };
+            int index = NewssdkToBrowser.LOG_BRANCH.indexOf("/");
+            if (index > 0 && index < NewssdkToBrowser.LOG_BRANCH.length()) {
+                String remoteName = NewssdkToBrowser.LOG_BRANCH.substring(0, index);
+                String branchName = NewssdkToBrowser.LOG_BRANCH.substring(index + 1);
+                String[] fetchFetch = {"/bin/sh", "-c",
+                        "cd " + NewssdkToBrowser.NEWSDK_FILE_DIR + "; " +
+                                "git fetch " + remoteName + " " + branchName};
+                // 更新远程log
+                Runtime.getRuntime().exec(fetchFetch);
+            }
 
-//            Runtime.getRuntime().exec("sh -c cd /media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/newsfeed");
+            String[] cmd = {"/bin/sh", "-c",
+                    "cd " + NewssdkToBrowser.NEWSDK_FILE_DIR + "; " +
+                            "git log " + NewssdkToBrowser.LOG_BRANCH + " -n " + count + " --pretty=format:\"%an %ai %s\";"};
+
             Process process = Runtime.getRuntime().exec(cmd);
-//            Process process = Runtime.getRuntime().exec("sh -c ls -al");
             streamToStr = streamToString(process.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,7 +63,6 @@ public class MyClass {
         if (streamToStr == null) {
             return;
         }
-
 
 
         String fileName = copyFile();
@@ -74,14 +79,14 @@ public class MyClass {
 //            read(filePath, datas, datas2);
             read2(streamToStr, datas, datas2);
 
-            writeLine(filePath);
+            writeLine();
 
-            writeString(filePath, "[browser][newssdk][" + version + "][aar] " + fileName);
-            write1(filePath, datas);
+            writeString("[browser][newssdk][" + version + "][aar] " + fileName);
+            write1(datas);
 
-            writeLine(filePath);
-            writeString(filePath, fileName);
-            write1(filePath, datas2);
+            writeLine();
+            writeString(fileName);
+            write1(datas2);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +96,7 @@ public class MyClass {
     }
 
     private static String copyFile() {
-        String downloadPath = "/home/kc/Downloads";
+        String downloadPath = NewssdkToBrowser.AAR_DOWNLOAD_PATH;
         File downloadPathFile = new File(downloadPath);
 
 
@@ -125,7 +130,7 @@ public class MyClass {
             System.err.println("md5 error");
         }
 
-        String destFilePath = "/media/kc/god/home/kc/workspace/code/dev/m_browser_chromium/browser/browser/libs/newssdk.aar";
+        String destFilePath = NewssdkToBrowser.BROWSER_PROJECT_DIR + "browser/browser/libs/newssdk.aar";
         File destFile = new File(destFilePath);
 
         boolean success = copyFile(new File(filePath), destFile);
@@ -152,50 +157,6 @@ public class MyClass {
 
     }
 
-    private static void read(String filePath, ArrayList<String> datas, ArrayList<String> datas2) throws IOException {
-
-        int currentLine = 0;
-        BufferedReader bis = new BufferedReader(new FileReader(new File(filePath)));
-        String line = null;
-
-
-        List<String> headers = new ArrayList<String>();
-        List<String> tail = new ArrayList<String>();
-        int maxHeaderLen = 0;
-
-        while ( (line = bis.readLine()) != null ) {
-//            System.out.println(line);
-
-            String[] parts = line.split(" ", 8);
-            if (parts.length == 8) {
-                currentLine++;
-                datas.add( currentLine + ". " + parts[7] + "###" + parts[1]);
-
-
-                String header = getHeader(parts);
-                headers.add(header);
-                if (maxHeaderLen < header.length()) {
-                    maxHeaderLen = header.length();
-                }
-                tail.add(parts[7]);
-            }
-        }
-
-        for (int i = 0; i < headers.size(); i++) {
-            String content = headers.get(i);
-            int spaceCount = maxHeaderLen - content.length() + 1;
-            for (int j = 0; j<spaceCount; j++) {
-                content += ' ';
-            }
-
-            content += tail.get(i);
-            datas2.add(content);
-        }
-
-
-
-        bis.close();
-    }
 
 
     private static void read2(String streamToStr, ArrayList<String> datas, ArrayList<String> datas2) throws IOException {
@@ -205,11 +166,9 @@ public class MyClass {
 
         List<String> headers = new ArrayList<String>();
         List<String> tail = new ArrayList<String>();
-        int maxHeaderLen = 0;
+
 
         while ( (line = bis.readLine()) != null ) {
-//            System.out.println(line);
-
             String[] parts = line.split(" ", 5);
             if (parts.length == 5) {
                 currentLine++;
@@ -218,24 +177,22 @@ public class MyClass {
 
                 String header = getHeader(parts);
                 headers.add(header);
-                if (maxHeaderLen < header.length()) {
-                    maxHeaderLen = header.length();
-                }
                 tail.add(parts[4]);
             }
         }
 
-        for (int i = 0; i < headers.size(); i++) {
-            String content = headers.get(i);
-            int spaceCount = maxHeaderLen - content.length() + 1;
-            for (int j = 0; j<spaceCount; j++) {
-                content += ' ';
-            }
 
-            content += tail.get(i);
+        for (int i = 0; i < headers.size(); i++) {
+//            String start = (i < 9 ? ("0" + (i+1) + ".") : ((i+1) +"."));
+//            String content = start;
+            String content = "";
+            content +=  headers.get(i);
+            content += '\n';
+            content +=  tail.get(i);
+            content += '\n';
+            content += "-------------------------------------------";
             datas2.add(content);
         }
-
 
 
         bis.close();
@@ -243,47 +200,35 @@ public class MyClass {
 
     private static String getHeader(String[] parts) {
         StringBuilder content = new StringBuilder();
-        content.append("【");
+//        content.append("【");
         String[] years = parts[1].split("-");
         content.append(years[1]);
         content.append("月");
         content.append(years[2]);
         content.append("号");
         content.append(parts[2]);
-        content.append("，");
+        content.append(" | ");
         content.append(parts[0]);
-        content.append("】");
+//        content.append("】");
 
         return content.toString();
     }
 
 
-    private static void writeLine(String filePath) throws IOException {
-        BufferedWriter br = new BufferedWriter(new FileWriter(filePath, true));
+    private static void writeLine() throws IOException {
         for (int i =0; i< 3; i++) {
-            br.write('\n');
             System.out.println();
         }
-        br.close();
     }
 
-    private static void write1(String filePath, ArrayList<String> datas) throws IOException {
-        BufferedWriter br = new BufferedWriter(new FileWriter(filePath, true));
+    private static void write1(ArrayList<String> datas) throws IOException {
         for (String data : datas) {
-            br.write(data);
-            br.write('\n');
             System.out.println(data);
         }
-
-        br.close();
     }
 
-    private static void writeString(String filePath, String string) throws IOException {
-        BufferedWriter br = new BufferedWriter(new FileWriter(filePath, true));
-        br.write(string);
-        br.write('\n');
+    private static void writeString(String string) throws IOException {
         System.out.println(string);
-        br.close();
     }
 
     public static byte[] createChecksum(String filename) throws Exception {
