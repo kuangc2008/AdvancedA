@@ -157,6 +157,17 @@
 
         </activity>
 
+        <activity android:name="myapp.kc.com.activity.WebViewFlashActivity"
+            android:label="webview flash"
+            android:windowSoftInputMode="adjustResize"
+            >
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+
+        </activity>
+
+
     </application>
 
 </manifest>
