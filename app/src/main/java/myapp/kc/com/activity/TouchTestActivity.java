@@ -50,8 +50,11 @@ public class TouchTestActivity extends Activity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.i("kcc", "activity onTouch " + event.getAction());
-        return super.onTouchEvent(event);
+//        Log.i("kcc", "activity onTouch " + event.getAction(), new Exception());
+        boolean resuslt = super.onTouchEvent(event);
+//        Log.i("kcc", "activity onTouch " + event.getAction() + "  resul: " + resuslt, new Exception());
+        Log.i("kcc", "activity onTouch " + event.getAction() + "  resul: " + resuslt);
+        return resuslt;
     }
 
     @Override
@@ -59,4 +62,6 @@ public class TouchTestActivity extends Activity {
         Log.i("kcc", "activity dispatchTouchEvent " + ev.getAction());
         return super.dispatchTouchEvent(ev);
     }
+
+
 }
