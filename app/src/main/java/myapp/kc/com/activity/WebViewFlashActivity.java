@@ -20,7 +20,7 @@ import android.widget.ScrollView;
 import com.kc.kuanglibrary.BaseActivity;
 
 import myapp.kc.com.kuang2016_go.R;
-N
+
 /**
  * @author kc create on 1/2/18.
  * @copyright litebrowser
