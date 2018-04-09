@@ -6,12 +6,12 @@
     <myapp.kc.com.view.TestTouchViewBelow
         android:layout_width="500dp"
         android:layout_height="500dp"
-        android:background="#ff0"
+        android:background="#0f0"
         />
 
     <myapp.kc.com.view.TestTouchViewUp
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        android:background="#9dF0"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="#f00"
         />
 </myapp.kc.com.view.TestTouchFrameLayoutu>

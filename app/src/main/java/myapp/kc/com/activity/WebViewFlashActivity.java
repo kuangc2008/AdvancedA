@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
@@ -20,6 +21,7 @@ import android.widget.ScrollView;
 import com.kc.kuanglibrary.BaseActivity;
 
 import myapp.kc.com.kuang2016_go.R;
+import myapp.kc.com.view.MyWebView;
 
 /**
  * @author kc create on 1/2/18.
@@ -27,13 +29,14 @@ import myapp.kc.com.kuang2016_go.R;
  */
 public class WebViewFlashActivity extends BaseActivity {
 
+    private MyWebView wwebView;
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.web_veiew_flash_test);
-        final WebView wwebView = (WebView) findViewById(R.id.heheda);
+        wwebView = (MyWebView) findViewById(R.id.heheda);
 
         WebSettings ws = wwebView.getSettings();
         try {
@@ -75,6 +78,14 @@ public class WebViewFlashActivity extends BaseActivity {
                 Log.e("kcc", "vvv1111-");
             }
         });
+
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                wwebView.flingScroll(0, 10000);
+            }
+        });
+
 
 
         wwebView.setWebViewClient(new WebViewClient() {
@@ -125,7 +136,13 @@ public class WebViewFlashActivity extends BaseActivity {
 
     }
 
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            wwebView.scrollBy(0, 0);
+        }
+        return super.onTouchEvent(event);
+    }
 }
 
 

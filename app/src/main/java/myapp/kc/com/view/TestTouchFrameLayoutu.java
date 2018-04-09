@@ -21,17 +21,17 @@ public class TestTouchFrameLayoutu extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.w("kcc", " TestTouchFrameLayoutu onInterceptTouchEvent " + ev.getAction());
+        Log.w("kcc", " TestTouchFrameLayoutu onInterceptTouchEvent " + ev.getAction(), new Exception());
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             mdownX = ev.getX();
             return false;
         }
 
         if(ev.getX() - mdownX > 200) {
-            return true;
+            return false;
         }
 
-        return super.onInterceptTouchEvent(ev);
+        return false;
     }
 
     @Override
@@ -48,7 +48,8 @@ public class TestTouchFrameLayoutu extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.w("kcc", " TestTouchFrameLayoutu onTouchEvent " + event.getAction());
-        return super.onTouchEvent(event);
+        boolean s = super.onTouchEvent(event);;
+        Log.w("kcc", " TestTouchFrameLayoutu onTouchEvent " + event.getAction() + "  aaa-" + s);
+        return true;
     }
 }

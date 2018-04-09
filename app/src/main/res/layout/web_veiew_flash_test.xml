@@ -7,13 +7,21 @@
     <LinearLayout
         android:id="@+id/hehe"
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <WebView
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="快速下滑"
+            />
+
+        <myapp.kc.com.view.MyWebView
             android:id="@+id/heheda"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </WebView>
+        </myapp.kc.com.view.MyWebView>
 
 
     </LinearLayout>
