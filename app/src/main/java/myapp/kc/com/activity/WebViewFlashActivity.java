@@ -21,6 +21,7 @@ import android.widget.ScrollView;
 import com.kc.kuanglibrary.BaseActivity;
 
 import myapp.kc.com.kuang2016_go.R;
+import myapp.kc.com.view.DetailWebView;
 import myapp.kc.com.view.MyWebView;
 
 /**
@@ -29,14 +30,14 @@ import myapp.kc.com.view.MyWebView;
  */
 public class WebViewFlashActivity extends BaseActivity {
 
-    private MyWebView wwebView;
+    private DetailWebView wwebView;
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.web_veiew_flash_test);
-        wwebView = (MyWebView) findViewById(R.id.heheda);
+        wwebView = (DetailWebView) findViewById(R.id.heheda);
 
         WebSettings ws = wwebView.getSettings();
         try {
@@ -131,7 +132,7 @@ public class WebViewFlashActivity extends BaseActivity {
 
 
 //        wwebView.loadUrl("http://m.news.so.com/transcoding?url=http%3A%2F%2Fnews.ynet.com%2F2017%2F12%2F30%2F818341t70.html&check=a3013b7ecbc0ad8c&uid=a8a586af3ce5a7d687a920838fd00ee9&sign=contents&market=nh00001&stype=null&sdkv=3&v=1&sv=12&templetctl=7&360newsdetail=1&hsitetype=1&ucheck=32d03a907f48baab4c284dd054ff2797&hscmt=1&swidth=1080&act=share&to=copy_link&device=1&relatestyle=3");
-        wwebView.loadUrl("http://m.toutiaocdn.cn/group/6506394191294104077/?iid=22487481974&app=news_article×tamp=1514956818&tt_from=android_share&utm_medium=toutiao_android&utm_campaign=client_share");
+        wwebView.loadUrl("http://m.news.so.com/transcoding?url=http%3A%2F%2Fzm.news.so.com%2Fbbff4c60eb470f86d63fb9a272777aff&check=1db58ee3b5ea7636&uid=cfd4ccfb2039330319f7d56d5b016897&sign=contents&market=lta00001&stype=portal&sdkv=3&v=1&sv=12&templetctl=7&360newsdetail=1&articlety=zmt&hsitetype=1&ucheck=e45e687617f704baf7b0f4499b5c9c9e&hscmt=1\n");
 
 
     }
