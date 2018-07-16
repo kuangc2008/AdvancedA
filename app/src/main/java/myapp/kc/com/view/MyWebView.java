@@ -29,27 +29,27 @@ public class MyWebView extends WebView {
     @Override
     protected int computeVerticalScrollOffset() {
         int size = super.computeVerticalScrollOffset();;
-        Log.i("kcc", "computeVerticalScrollOffset" + size);
+//        Log.i("kcc", "computeVerticalScrollOffset" + size);
         return size;
     }
 
     @Override
     protected int computeVerticalScrollRange() {
         int value = super.computeVerticalScrollRange();;
-        Log.i("kcc", "computeVerticalScrollRange" + value);
+//        Log.i("kcc", "computeVerticalScrollRange" + value);
         return value;
     }
 
     @Override
     protected int computeVerticalScrollExtent() {
         int value = super.computeVerticalScrollExtent();;
-        Log.i("kcc", "computeVerticalScrollExtent" + value);
+//        Log.i("kcc", "computeVerticalScrollExtent" + value);
         return value;
     }
 
     @Override
     public WindowInsets computeSystemWindowInsets(WindowInsets in, Rect outLocalInsets) {
-        Log.i("kcc", "computeSystemWindowInsets" + outLocalInsets);
+//        Log.i("kcc", "computeSystemWindowInsets" + outLocalInsets);
         return super.computeSystemWindowInsets(in, outLocalInsets);
     }
 
@@ -110,5 +110,30 @@ public class MyWebView extends WebView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.i("kcc", "MyWebView onDraw");
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.i("kcc", "MyWebView onMeasure");
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        Log.i("kcc", "MyWebView onLayout");
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        Log.i("kcc", "MyWebView onDetachedFromWindow");
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Log.i("kcc", "MyWebView onAttachedToWindow");
     }
 }

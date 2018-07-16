@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import myapp.kc.com.activity.ActivityFinder;
+import myapp.kc.com.view.MyWebView;
 
 public class MainActivity extends Activity {
 
@@ -24,6 +26,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ListView ll = new ListView(this);
+        MyWebView webView = new MyWebView(this);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("https://www.jianshu.com/p/4564be81a108");
+        webView.setLayoutParams(new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,  3000));
+        ll.addHeaderView(webView);
         ll.setAdapter(new MainAdapter(this));
         setContentView(ll);
     }
@@ -82,13 +89,14 @@ public class MainActivity extends Activity {
             ViewHolder holder = null;
             if (convertView == null) {
                 holder = new ViewHolder();
-                convertView = LayoutInflater.from(mContext).inflate(android.R.layout.simple_list_item_1, null);
-                holder.listTitleTV = (TextView) convertView.findViewById(android.R.id.text1);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.my_textview, null);
+                holder.listTitleTV = (TextView) convertView.findViewById(R.id.text1);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
+            convertView.setTag(R.id.text1, position);
             final ActivityInfo info = getItem(position);
             holder.listTitleTV.setText(info.loadLabel(mContext.getPackageManager()));
             holder.listTitleTV.setOnClickListener(new View.OnClickListener(){
