@@ -26,11 +26,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ListView ll = new ListView(this);
-        MyWebView webView = new MyWebView(this);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.jianshu.com/p/4564be81a108");
-        webView.setLayoutParams(new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,  3000));
-        ll.addHeaderView(webView);
+//        MyWebView webView = new MyWebView(this);
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.loadUrl("https://www.jianshu.com/p/4564be81a108");
+//        webView.setLayoutParams(new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,  3000));
+//        ll.addHeaderView(webView);
         ll.setAdapter(new MainAdapter(this));
         setContentView(ll);
     }
