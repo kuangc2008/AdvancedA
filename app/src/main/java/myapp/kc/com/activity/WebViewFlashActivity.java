@@ -20,6 +20,9 @@ import android.widget.ScrollView;
 
 import com.kc.kuanglibrary.BaseActivity;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import myapp.kc.com.kuang2016_go.R;
 import myapp.kc.com.view.DetailWebView;
 import myapp.kc.com.view.MyWebView;
@@ -39,7 +42,7 @@ public class WebViewFlashActivity extends BaseActivity {
         setContentView(R.layout.web_veiew_flash_test);
         wwebView = (DetailWebView) findViewById(R.id.heheda);
 
-        WebSettings ws = wwebView.getSettings();
+        com.qihoo.webkit.WebSettings ws = wwebView.getSettings();
         try {
             ws.setJavaScriptEnabled(true);
         } catch (Exception e) {
@@ -48,7 +51,17 @@ public class WebViewFlashActivity extends BaseActivity {
         ws.setDomStorageEnabled(true);
 //        ws.setSupportZoom(false);
         ws.setDefaultTextEncodingName("UTF-8");
-        ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        ws.setUserAgentString("Mozilla/5.0 (Linux; Android 7.1.1; PRO 6 Build/NMF26O; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 SearchCraft/3.4.2 (Baidu; P1 7.1.1)Mozilla/5.0 (Linux; Android 7.1.1; PRO 6 Build/NMF26O; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 SearchCraft/3.4.2 (Baidu; P1 7.1.1)");
+        ws.setLayoutAlgorithm(com.qihoo.webkit.WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+//            enablecrossdomain41();
+//            ws.setAllowUniversalAccessFromFileURLs(true);
+//            ws.setAllowFileAccessFromFileURLs(true);
+        } else {
+//            enablecrossdomain();
+        }
 
 
 //        if (Build.VERSION.SDK_INT >= 19) {
@@ -89,9 +102,9 @@ public class WebViewFlashActivity extends BaseActivity {
 
 
 
-        wwebView.setWebViewClient(new WebViewClient() {
+        wwebView.setWebViewClient(new com.qihoo.webkit.WebViewClient() {
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onPageFinished(com.qihoo.webkit.WebView view, String url) {
                 super.onPageFinished(view, url);
 
 
@@ -114,9 +127,9 @@ public class WebViewFlashActivity extends BaseActivity {
             }
         });
 
-        wwebView.setWebChromeClient(new WebChromeClient(){
+        wwebView.setWebChromeClient(new com.qihoo.webkit.WebChromeClient(){
             @Override
-            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+            public boolean onConsoleMessage(com.qihoo.webkit.ConsoleMessage consoleMessage) {
                 Log.e("kcc", "3331-" + consoleMessage.message());
                 return super.onConsoleMessage(consoleMessage);
             }
@@ -132,9 +145,56 @@ public class WebViewFlashActivity extends BaseActivity {
 
 
 //        wwebView.loadUrl("http://m.news.so.com/transcoding?url=http%3A%2F%2Fnews.ynet.com%2F2017%2F12%2F30%2F818341t70.html&check=a3013b7ecbc0ad8c&uid=a8a586af3ce5a7d687a920838fd00ee9&sign=contents&market=nh00001&stype=null&sdkv=3&v=1&sv=12&templetctl=7&360newsdetail=1&hsitetype=1&ucheck=32d03a907f48baab4c284dd054ff2797&hscmt=1&swidth=1080&act=share&to=copy_link&device=1&relatestyle=3");
-        wwebView.loadUrl("http://m.news.so.com/transcoding?url=http%3A%2F%2Fzm.news.so.com%2Fbbff4c60eb470f86d63fb9a272777aff&check=1db58ee3b5ea7636&uid=cfd4ccfb2039330319f7d56d5b016897&sign=contents&market=lta00001&stype=portal&sdkv=3&v=1&sv=12&templetctl=7&360newsdetail=1&articlety=zmt&hsitetype=1&ucheck=e45e687617f704baf7b0f4499b5c9c9e&hscmt=1\n");
+        wwebView.loadUrl("http://www.baidu.com");
 
 
+    }
+
+
+    public void enablecrossdomain()
+    {
+        try
+        {
+            Field field = WebView.class.getDeclaredField("mWebViewCore");
+            field.setAccessible(true);
+            Object webviewcore=field.get(this);
+            Method method = webviewcore.getClass().getDeclaredMethod("nativeRegisterURLSchemeAsLocal", String.class);
+            method.setAccessible(true);
+            method.invoke(webviewcore, "http");
+            method.invoke(webviewcore, "https");
+        }
+        catch(Exception e)
+        {
+            Log.d("wokao","enablecrossdomain error");
+            e.printStackTrace();
+        }
+    }
+
+    //for android 4.1+
+    public void enablecrossdomain41()
+    {
+        try
+        {
+            Field webviewclassic_field = WebView.class.getDeclaredField("mProvider");
+            webviewclassic_field.setAccessible(true);
+            Object webviewclassic=webviewclassic_field.get(this);
+            Field webviewcore_field = webviewclassic.getClass().getDeclaredField("mWebViewCore");
+            webviewcore_field.setAccessible(true);
+            Object mWebViewCore=webviewcore_field.get(webviewclassic);
+            Field nativeclass_field = webviewclassic.getClass().getDeclaredField("mNativeClass");
+            nativeclass_field.setAccessible(true);
+            Object mNativeClass=nativeclass_field.get(webviewclassic);
+
+            Method method = mWebViewCore.getClass().getDeclaredMethod("nativeRegisterURLSchemeAsLocal",new Class[] {int.class,String.class});
+            method.setAccessible(true);
+            method.invoke(mWebViewCore,mNativeClass, "http");
+            method.invoke(mWebViewCore,mNativeClass, "https");
+        }
+        catch(Exception e)
+        {
+            Log.d("wokao","enablecrossdomain error");
+            e.printStackTrace();
+        }
     }
 
     @Override
