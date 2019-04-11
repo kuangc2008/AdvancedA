@@ -24,7 +24,7 @@ class ImageViewActivity : BaseActivity() {
 
 
         runOnUiThread {
-            Log.i("kcc", " first:" + image_view1.background  + "  width " +  image_view1.background.intrinsicWidth  + "  matrix->" + image_view1.background.ma)
+            Log.i("kcc", " first:" + image_view1.background  + "  width " +  image_view1.background.intrinsicWidth  + "  matrix->" + image_view1.background)
             Log.i("kcc", " second:" + image_view2.background  + "  width " +  image_view2.background.intrinsicWidth)
 
             if (image_view1.background is BitmapDrawable) {
