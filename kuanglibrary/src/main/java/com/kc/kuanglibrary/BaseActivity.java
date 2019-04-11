@@ -3,7 +3,9 @@ package com.kc.kuanglibrary;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -13,7 +15,7 @@ import com.kc.utils.Constant;
 /**
  * Created by chengkuang on 16/10/21.
  */
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends AppCompatActivity {
 
 
     private int mAboveKeyboardHeight = 0;
@@ -54,6 +56,11 @@ public class BaseActivity extends FragmentActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     private View getRootView() {

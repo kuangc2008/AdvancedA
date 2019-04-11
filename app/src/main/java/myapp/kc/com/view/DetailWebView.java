@@ -5,7 +5,8 @@ import android.support.v4.view.NestedScrollingChildHelper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.webkit.WebView;
+
+import com.qihoo.webkit.WebView;
 
 
 public class DetailWebView extends WebView implements IDetailWebView {
