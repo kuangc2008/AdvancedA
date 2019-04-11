@@ -215,6 +215,18 @@
         </activity>
 
 
+        <activity android:name="myapp.kc.com.activity.XingquTags"
+            android:label="xingqu tags"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme"
+            >
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+
+        </activity>
+
+
     </application>
 
 </manifest>
