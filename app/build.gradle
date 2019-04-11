@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 23
     buildToolsVersion '25.0.0'
@@ -23,4 +26,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile project(':kuanglibrary')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

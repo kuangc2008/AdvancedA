@@ -14,6 +14,8 @@ import android.util.Log;
 
 import com.kc.kuanglibrary.BaseActivity;
 
+import myapp.kc.com.kuang2016_go.R;
+
 /**
  * Created by kc on 5/3/17.
  */
@@ -49,6 +51,9 @@ public class WIFITestActivity extends BaseActivity {
 
         mManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 //        mHandler.sendEmptyMessageDelayed(0, 3000);
+
+
+        setContentView(R.layout.wifi);
     }
 
     @Override
