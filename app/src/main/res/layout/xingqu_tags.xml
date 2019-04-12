@@ -32,92 +32,93 @@
         android:text="更多精彩内容即刻呈现" />
 
     <myapp.kc.com.view.RevealFrameParent
+        android:id="@+id/tags_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#0F0"
-            app:cardElevation="0dp"
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:cardCornerRadius="8dp"-->
+            <!--app:cardBackgroundColor="#0F0"-->
+            <!--app:cardElevation="0dp"-->
 
-            android:layout_marginRight="10dp"
-            android:id="@+id/shehui"
-            app:src="@drawable/hugh"
-            app:tagsBg="@color/blue"
-            app:tagsTitle="啦啦啦"
-            />
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:id="@+id/shehui"-->
+            <!--app:src="@drawable/hugh"-->
+            <!--app:tagsBg="@color/blue"-->
+            <!--app:tagsTitle="啦啦啦"-->
+            <!--/>-->
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:layout_weight="1"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp"
-            android:layout_marginRight="10dp"
-            android:visibility="visible"
-            app:cardBackgroundColor="#0F0"
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#fff"-->
+            <!--android:layout_weight="1"-->
+            <!--app:cardCornerRadius="8dp"-->
+            <!--app:cardElevation="0dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:visibility="visible"-->
+            <!--app:cardBackgroundColor="#0F0"-->
 
-            android:id="@+id/shehui2"
-            app:src="@drawable/hugh"
-            app:tagsBg="@color/blue"
-            app:tagsTitle="啦啦啦"
-            />
+            <!--android:id="@+id/shehui2"-->
+            <!--app:src="@drawable/hugh"-->
+            <!--app:tagsBg="@color/blue"-->
+            <!--app:tagsTitle="啦啦啦"-->
+            <!--/>-->
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#fff"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#0F0"
-            app:cardElevation="0dp"
-            android:visibility="visible" />
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#fff"-->
+            <!--app:cardCornerRadius="8dp"-->
+            <!--app:cardBackgroundColor="#0F0"-->
+            <!--app:cardElevation="0dp"-->
+            <!--android:visibility="visible" />-->
 
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#fff"
-            android:visibility="visible" />
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#fff"-->
+            <!--android:visibility="visible" />-->
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#fff"
-            android:visibility="visible" />
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#fff"-->
+            <!--android:visibility="visible" />-->
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:layout_weight="1"
-            android:visibility="visible" />
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#fff"-->
+            <!--android:layout_weight="1"-->
+            <!--android:visibility="visible" />-->
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:layout_weight="1"
-            android:visibility="visible" />
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#fff"-->
+            <!--android:layout_weight="1"-->
+            <!--android:visibility="visible" />-->
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:layout_weight="1"
-            android:visibility="visible" />
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#fff"-->
+            <!--android:layout_weight="1"-->
+            <!--android:visibility="visible" />-->
 
-        <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:layout_weight="1"
-            android:visibility="visible" />
+        <!--<myapp.kc.com.view.RevealFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#fff"-->
+            <!--android:layout_weight="1"-->
+            <!--android:visibility="visible" />-->
     </myapp.kc.com.view.RevealFrameParent>
 
 

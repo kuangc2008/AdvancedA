@@ -64,32 +64,48 @@ public class RevealFrameLayout extends CardView {
         mTagImgView = (ImageView) findViewById(R.id.tag_img);
 
 
-        if (attrs != null) {
-            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RevealFrameLayout);
+//        if (attrs != null) {
+//            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RevealFrameLayout);
+//
+//            int src = a.getResourceId(R.styleable.RevealFrameLayout_src, -1);
+//            mTagImgView.setImageResource(src);
+//
+//            int tagsBg = a.getResourceId(R.styleable.RevealFrameLayout_tagsBg, 0);
+//            if (tagsBg == 0) {
+//                tagsBg = a.getColor(R.styleable.RevealFrameLayout_tagsBg, 0);
+//            } else {
+//                tagsBg = a.getResources().getColor(tagsBg);
+//            }
+//            p.setColor(tagsBg);
+//
+//
+//            int tagsStringResource = a.getResourceId(R.styleable.RevealFrameLayout_tagsTitle, 0);
+//            String tagsStr = "";
+//            if (tagsStringResource == 0) {
+//                tagsStr = a.getString(R.styleable.RevealFrameLayout_tagsTitle);
+//            } else {
+//                tagsStr = a.getResources().getString(tagsStringResource);
+//            }
+//            mTagTextView.setText(tagsStr);
+//
+//            a.recycle();
+//        }
+    }
 
-            int src = a.getResourceId(R.styleable.RevealFrameLayout_src, -1);
-            mTagImgView.setImageResource(src);
 
-            int tagsBg = a.getResourceId(R.styleable.RevealFrameLayout_tagsBg, 0);
-            if (tagsBg == 0) {
-                tagsBg = a.getColor(R.styleable.RevealFrameLayout_tagsBg, 0);
-            } else {
-                tagsBg = a.getResources().getColor(tagsBg);
-            }
-            p.setColor(tagsBg);
+    public void setSrcResource(int hugh) {
+        mTagImgView.setImageResource(hugh);
+        invalidate();
+    }
 
+    public void setTagsBg(int color) {
+        p.setColor(color);
+        invalidate();
+    }
 
-            int tagsStringResource = a.getResourceId(R.styleable.RevealFrameLayout_tagsTitle, 0);
-            String tagsStr = "";
-            if (tagsStringResource == 0) {
-                tagsStr = a.getString(R.styleable.RevealFrameLayout_tagsTitle);
-            } else {
-                tagsStr = a.getResources().getString(tagsStringResource);
-            }
-            mTagTextView.setText(tagsStr);
-
-            a.recycle();
-        }
+    public void setTagsTitle(String lalala) {
+        mTagTextView.setText(lalala);
+        invalidate();
     }
 
     public RevealFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -162,8 +178,6 @@ public class RevealFrameLayout extends CardView {
         objectAnimator = null;
         tagsAnimator = null;
     }
-
-
 
 
 }
