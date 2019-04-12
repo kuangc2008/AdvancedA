@@ -14,6 +14,7 @@ import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ public class RevealFrameLayout extends CardView {
     private float radiusFac = 0.35f;
     private Point center = new Point();
 
-    Paint p = new Paint();
+    Paint p = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
     private float coRadius;
     public ObjectAnimator objectAnimator = null;
@@ -46,23 +47,6 @@ public class RevealFrameLayout extends CardView {
     private TextView mTagTextView = null;
 
 
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-
-        coRadius = getWidth() *radiusFac;
-        MIN_RADIUS = coRadius;
-
-        Log.i("kcc", "onLayout->" + coRadius + "  mian->" + MIN_RADIUS);
-
-        center.x = (int) (getWidth() - MIN_RADIUS * 0.7f);
-        center.y = (int) (getHeight() - MIN_RADIUS * 0.7f);
-
-        MAX_RADIUS = (float) Math.sqrt(  Math.pow(center.x, 2) + Math.pow(center.y, 2));
-
-        objectAnimator = null;
-        tagsAnimator = null;
-    }
 
     public RevealFrameLayout(@NonNull Context context) {
         super(context);
@@ -158,8 +142,25 @@ public class RevealFrameLayout extends CardView {
             objectAnimator1.reverse();
             objectAnimator2.reverse();
         }
+    }
 
 
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        coRadius = getWidth() *radiusFac;
+        MIN_RADIUS = coRadius;
+
+        Log.i("kcc", "onLayout->" + coRadius + "  mian->" + MIN_RADIUS);
+
+        center.x = (int) (getWidth() - MIN_RADIUS * 0.7f);
+        center.y = (int) (getHeight() - MIN_RADIUS * 0.7f);
+
+        MAX_RADIUS = (float) Math.sqrt(  Math.pow(center.x, 2) + Math.pow(center.y, 2));
+
+        objectAnimator = null;
+        tagsAnimator = null;
     }
 
 

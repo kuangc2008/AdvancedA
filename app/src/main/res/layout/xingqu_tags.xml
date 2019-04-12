@@ -31,15 +31,13 @@
         android:layout_gravity="center_horizontal"
         android:text="更多精彩内容即刻呈现" />
 
-    <LinearLayout
+    <myapp.kc.com.view.RevealFrameParent
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content">
 
         <myapp.kc.com.view.RevealFrameLayout
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="#0F0"
             app:cardElevation="0dp"
@@ -59,7 +57,14 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
             android:layout_marginRight="10dp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            app:cardBackgroundColor="#0F0"
+
+            android:id="@+id/shehui2"
+            app:src="@drawable/hugh"
+            app:tagsBg="@color/blue"
+            app:tagsTitle="啦啦啦"
+            />
 
         <myapp.kc.com.view.RevealFrameLayout
             android:layout_width="match_parent"
@@ -67,17 +72,10 @@
             android:layout_weight="1"
             android:background="#fff"
             app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#0F0"
             app:cardElevation="0dp"
             android:visibility="visible" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="100dp">
-
 
         <myapp.kc.com.view.RevealFrameLayout
             android:layout_width="match_parent"
@@ -100,14 +98,6 @@
             android:layout_weight="1"
             android:visibility="visible" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="100dp">
-
         <myapp.kc.com.view.RevealFrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -128,8 +118,8 @@
             android:background="#fff"
             android:layout_weight="1"
             android:visibility="visible" />
+    </myapp.kc.com.view.RevealFrameParent>
 
-    </LinearLayout>
 
     <TextView
         android:layout_width="100dp"
