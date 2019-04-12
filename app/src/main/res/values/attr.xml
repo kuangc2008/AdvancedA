@@ -8,4 +8,13 @@
             <enum name="center" value="2" />
         </attr>
     </declare-styleable>
+
+
+
+    <declare-styleable name="RevealFrameLayout">
+        <attr name="src" format="reference" />
+        <attr name="tagsBg" format="reference|color" />
+        <attr name="tagsTitle" format="reference|string" />
+    </declare-styleable>
+
 </resources>
