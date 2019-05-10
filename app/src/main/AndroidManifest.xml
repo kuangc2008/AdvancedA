@@ -227,6 +227,16 @@
         </activity>
 
 
+        <activity android:name="myapp.kc.com.activity.jetpack.NameActivity"
+            android:label="live data"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme"
+            >
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
