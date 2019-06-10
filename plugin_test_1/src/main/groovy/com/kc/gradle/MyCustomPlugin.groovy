@@ -2,6 +2,10 @@ package com.kc.gradle;
 
 import org.gradle.api.*;
 
+class MyNestPluginExtension {
+	def receiver = "Kate Zhou"
+	def email = "KateZhou@gmail.com"
+}
 
 class MyCustomPluginExtension {
 	def message = "From MyCustomPluginExtention"
@@ -19,5 +23,10 @@ class MyCustomPlugin implements Plugin<Project> {
 
 		project.extensions.create('myArgs', MyCustomPluginExtension)
 		project.task('customTask2', type:MyCustomTask2)
+
+
+//		project.extensions.create('myArgs', MyCustomPluginExtension)
+		project.myArgs.extensions.create('nestArgs', MyNestPluginExtension)
+		project.task('customTask3', type: MyCustomTask3)
 	}
 }
