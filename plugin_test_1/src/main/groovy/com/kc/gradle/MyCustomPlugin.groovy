@@ -7,5 +7,7 @@ class MyCustomPlugin implements Plugin<Project> {
 		project.task('myTask') << {
 			println "Hi this is micky's plugin 2"
 		}
+
+		project.task('customTask', type:MyCustomTask)
 	}
 }
