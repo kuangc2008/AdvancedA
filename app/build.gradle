@@ -4,6 +4,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.kc.mycustom'
 
+
+myArgs {
+    sender='Micky Liu'
+    message='Gradle is so simple.'
+}
+
 android {
     compileSdkVersion 27
     buildToolsVersion '28.0.3'

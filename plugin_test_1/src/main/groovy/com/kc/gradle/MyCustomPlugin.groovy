@@ -2,6 +2,12 @@ package com.kc.gradle;
 
 import org.gradle.api.*;
 
+
+class MyCustomPluginExtension {
+	def message = "From MyCustomPluginExtention"
+	def sender = "MyCustomPluin"
+}
+
 class MyCustomPlugin implements Plugin<Project> {
 	void apply(Project project) {
 		project.task('myTask') << {
@@ -9,5 +15,9 @@ class MyCustomPlugin implements Plugin<Project> {
 		}
 
 		project.task('customTask', type:MyCustomTask)
+
+
+		project.extensions.create('myArgs', MyCustomPluginExtension)
+		project.task('customTask2', type:MyCustomTask2)
 	}
 }
