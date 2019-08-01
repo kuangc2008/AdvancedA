@@ -8,10 +8,22 @@ buildscript {
             url 'http://maven.aliyun.com/nexus/content/groups/public/'
         }
 
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        jcenter()
+        maven { url 'https://maven.google.com' }
+        maven {url uri('repo') }
+
     }
+
+    repositories.each {
+        println it.getUrl()
+    }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath group: 'com.kc', name: 'plugin_test_1', version: '1.0.8'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -20,6 +32,8 @@ buildscript {
 allprojects {
     repositories {
         google()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
         jcenter()
         maven {
             url 'http://maven.aliyun.com/nexus/content/groups/public/'
@@ -27,3 +41,6 @@ allprojects {
 
     }
 }
+
+
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="微信授权登录"
+        android:id="@+id/weixin"
+        />
+
+    <Button
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="启动小程序"
+        android:id="@+id/weixin2"
+        />
+
+    <Button
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="分享图文以及网页"
+        android:id="@+id/weixin3"
+        />
+    <Button
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="分享图文以及网页2"
+        android:id="@+id/weixin4"
+        />
+    <Button
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="分享图文以及网页3"
+        android:id="@+id/weixin5"
+        />
+
+</LinearLayout>

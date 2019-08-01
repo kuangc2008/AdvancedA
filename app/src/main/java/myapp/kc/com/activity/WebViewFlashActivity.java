@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,6 +16,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -34,13 +36,26 @@ import myapp.kc.com.view.MyWebView;
 public class WebViewFlashActivity extends BaseActivity {
 
     private DetailWebView wwebView;
+
+
+
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+Log.e("kcc", "WebViewFlashActivity");
         setContentView(R.layout.web_veiew_flash_test);
         wwebView = (DetailWebView) findViewById(R.id.heheda);
+
+
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                EditText et = findViewById(R.id.text);
+                String url = et.getText().toString();
+                wwebView.loadUrl(url);
+            }
+        });
 
         WebSettings ws = wwebView.getSettings();
         try {
@@ -51,7 +66,7 @@ public class WebViewFlashActivity extends BaseActivity {
         ws.setDomStorageEnabled(true);
 //        ws.setSupportZoom(false);
         ws.setDefaultTextEncodingName("UTF-8");
-        ws.setUserAgentString("Mozilla/5.0 (Linux; Android 7.1.1; PRO 6 Build/NMF26O; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 SearchCraft/3.4.2 (Baidu; P1 7.1.1)Mozilla/5.0 (Linux; Android 7.1.1; PRO 6 Build/NMF26O; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 SearchCraft/3.4.2 (Baidu; P1 7.1.1)");
+//        ws.setUserAgentString("Mozilla/5.0 (Linux; Android 7.1.1; PRO 6 Build/NMF26O; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 SearchCraft/3.4.2 (Baidu; P1 7.1.1)Mozilla/5.0 (Linux; Android 7.1.1; PRO 6 Build/NMF26O; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 SearchCraft/3.4.2 (Baidu; P1 7.1.1)");
 
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -92,39 +107,42 @@ public class WebViewFlashActivity extends BaseActivity {
             }
         });
 
-        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener(){
+
+
+
+        wwebView.setWebViewClient(new WebViewClient() {
+
             @Override
-            public void onClick(View v) {
-                wwebView.flingScroll(0, 10000);
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return super.shouldOverrideUrlLoading(view, url);
+
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                Log.e("kcc", "onPageFinished->" + view.getSettings().getUserAgentString());
+
+
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK101(1)");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK102({\"support\":\"1\",\"wid\":\"6ac7941b787ccd94bb992c2b686fc773\",\"token\":\"1514889884|7246966b2353fb2b08c311d58fbc956f\"})");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK104(1)");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK103(1)");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK105({\"wid\":\"6ac7941b787ccd94bb992c2b686fc773\",\"sign\":\"contents\",\"network_type\":\"4\",\"refer_scene\":\"0\",\"source\":\"multi,test_filter_V24,normal_op,sts0,fts3,constellation,,nbbn_cconstellation_S:5:10964:横财:生肖,nbbn_cconstellation_S:5:14522:财运:生肖,nbbn_cconstellation_S:5:8760:生肖:财神,nbbn_kconstellation_1:横财,nbbn_kconstellation_1:生肖,nbbn_kconstellation_1:运势,nbbn_kconstellation_2:横财,nbbn_kconstellation_2:生肖,nbbn_kconstellation_2:运势,nbbn_sconstellation_星座,nbbn_tconstellation,,nbbc_tconstellation_V151,nbbr_tconstellation_V151__100__1320__132000__27__22__100,tag,tagt_01110,uusdkother_0,nbbh_merger105.se.bjyt,uusdkother,,wvalidllquid,wlocal_BeiJing,wqiku,wdpv0,wdclk0,wspuser_3beijing,wspuser_2dasha,nbbs_31:1\",\"refer_subscene\":\"0\"})");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK106(1)");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK107(1)");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK109(1)");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK110(1)");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK111(1)");
+//                wwebView.loadUrl("javascript:$NATIVECALLBACK112(1)");
+//                wwebView.loadUrl("javascript:sdk.trigger()");
+//
+//
+//                sv.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+
             }
         });
-
-
-//
-//        wwebView.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public void onPageFinished(cWebView view, String url) {
-//                super.onPageFinished(view, url);
-//
-//
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK101(1)");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK102({\"support\":\"1\",\"wid\":\"6ac7941b787ccd94bb992c2b686fc773\",\"token\":\"1514889884|7246966b2353fb2b08c311d58fbc956f\"})");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK104(1)");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK103(1)");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK105({\"wid\":\"6ac7941b787ccd94bb992c2b686fc773\",\"sign\":\"contents\",\"network_type\":\"4\",\"refer_scene\":\"0\",\"source\":\"multi,test_filter_V24,normal_op,sts0,fts3,constellation,,nbbn_cconstellation_S:5:10964:横财:生肖,nbbn_cconstellation_S:5:14522:财运:生肖,nbbn_cconstellation_S:5:8760:生肖:财神,nbbn_kconstellation_1:横财,nbbn_kconstellation_1:生肖,nbbn_kconstellation_1:运势,nbbn_kconstellation_2:横财,nbbn_kconstellation_2:生肖,nbbn_kconstellation_2:运势,nbbn_sconstellation_星座,nbbn_tconstellation,,nbbc_tconstellation_V151,nbbr_tconstellation_V151__100__1320__132000__27__22__100,tag,tagt_01110,uusdkother_0,nbbh_merger105.se.bjyt,uusdkother,,wvalidllquid,wlocal_BeiJing,wqiku,wdpv0,wdclk0,wspuser_3beijing,wspuser_2dasha,nbbs_31:1\",\"refer_subscene\":\"0\"})");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK106(1)");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK107(1)");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK109(1)");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK110(1)");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK111(1)");
-////                wwebView.loadUrl("javascript:$NATIVECALLBACK112(1)");
-////                wwebView.loadUrl("javascript:sdk.trigger()");
-////
-////
-////                sv.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-//
-//            }
-//        });
 //
 //        wwebView.setWebChromeClient(WebChromeClient(){
 //            @Override
