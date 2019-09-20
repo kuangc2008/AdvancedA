@@ -15,9 +15,8 @@
 
     <application
         android:theme="@style/AppTheme"
+        android:name=".KApplication"
         >
-
-
 
         <meta-data android:name="PF_P_PN" android:value="usergrowth" />
         <meta-data android:name="PF_P_INTER" android:value="false" />
@@ -25,8 +24,6 @@
         <meta-data android:name="PF_P_ACC_FLG" android:value="true" />
         <meta-data android:name="PF_P_DKEY" android:value="a0160709701140704575d499c997b6ca" />
         <meta-data android:name="startActivity" android:value="myapp.kc.com.activity.ServiceActivity" />
-
-
 
 
 

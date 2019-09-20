@@ -90,24 +90,6 @@ Log.e("kcc", "WebViewFlashActivity");
 
         final LinearLayout sv = (LinearLayout) findViewById(R.id.hehe);
 
-        sv.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-//                wwebView.loadUrl("javascript:scrollCallback(" + scrollY + ")");
-                Log.e("kcc", "javascript:scrollCallback()" + scrollY);
-            }
-        });
-//        sv.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-
-        wwebView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.e("kcc", "vvv1111-");
-            }
-        });
-
-
 
 
         wwebView.setWebViewClient(new WebViewClient() {
