@@ -21,16 +21,16 @@ repositories {
 	mavenCentral()
 }
 
-group='com.kc'
-version='1.0.8'
-
-uploadArchives {
-	repositories {
-		mavenDeployer {
-			repository(url: uri('../repo'))
-		}
-	}
-}
+//group='com.kc'
+//version='1.0.8'
+//
+//uploadArchives {
+//	repositories {
+//		mavenDeployer {
+//			repository(url: uri('../repo'))
+//		}
+//	}
+//}
 
 
 //apply plugin: 'maven'
