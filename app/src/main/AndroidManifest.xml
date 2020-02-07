@@ -46,6 +46,29 @@
             </intent-filter>
         </activity>
 
+
+
+        <activity
+            android:name="myapp.kc.com.vpn.localvpn.LocalVPN"
+            android:label="Local VPN " >
+
+            <intent-filter>
+                <action android:name="com.kc.main" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="myapp.kc.com.vpn.localvpn.LocalVPNService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
+
+
         <activity android:name="myapp.kc.com.activity.TestActivity"
             android:label="这是一个testActivity">
             <intent-filter>
@@ -269,6 +292,12 @@
             </intent-filter>
 
         </activity>
+
+
+
+
+
+
     </application>
 
 

@@ -8,4 +8,10 @@
     <string name="tab_float">float</string>
     <string name="tab_pinned">pinned</string>
 
+
+
+    <string name="start_vpn">Start VPN</string>
+    <string name="stop_vpn">Stop from Notification Bar</string>
+
+
 </resources>
